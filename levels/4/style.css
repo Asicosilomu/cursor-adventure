@@ -1,0 +1,13 @@
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.grid div {
+    height: 15px;
+    width: 15px;
+}
+
+.center {
+    justify-content: center;
+}
