@@ -46,7 +46,7 @@ function game() {
 }
 
 function win() {
-	if(hasGameStarted == true) {
+	if(hasGameStarted == true && window.gameLost != true && window.gameWon != true) {
 		window.gameWon = true;
 		var wantsNext = confirm("You won! Would you like to proceed to the next level?");
 		if(wantsNext == true) {
