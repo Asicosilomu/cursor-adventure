@@ -131,7 +131,7 @@ function doorKey(id, loc) {
 	square.style.height = "15px";
 	square.onclick = function() { if(window.hasGameStarted == true) { var doors = document.querySelectorAll(".tile.lockedDoor." + this.innerText); for (var i = 0; i < doors.length; i++) { doors[i].style.backgroundColor = "gray"; } } };
 	// exclusively for the introduction level
-	square.onmouseover = function() { document.querySelector(".titledisplay").textContent = "Good job! Now you need to click the key tile with your left mouse button. The corresponding door(s) should turn gray and allow you to go through them." };
+	square.onmouseover = function() { if(window.hasGameStarted == true) { document.querySelector(".titledisplay").textContent = "Good job! Now you need to click the key tile with your left mouse button. The corresponding door(s) should turn gray and allow you to go through them." } };
     loc.appendChild(square);
 }
 
