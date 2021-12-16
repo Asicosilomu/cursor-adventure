@@ -12,9 +12,24 @@
     justify-content: center;
 }
 
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.grid div {
+    height: 15px;
+    width: 15px;
+}
+
+.center {
+    justify-content: center;
+}
+
 body {
   -webkit-user-select: none;  
   -moz-user-select: none;    
   -ms-user-select: none;      
   user-select: none;
+  font-family: Segoe UI, Arial, Noto Sans, Ubuntu;
 }
