@@ -26,7 +26,8 @@ function createGrid() {
 }
 
 function lose() {
-	if(hasGameStarted == true && window.gameLost == false) {
+	if(hasGameStarted == true && window.gameLost != true) {
+		document.querySelector(".grids").remove();
 		window.gameLost = true;
 		var wantsToRestart = confirm("You lost! Would you like to try again?");
 		if(wantsToRestart == true) {

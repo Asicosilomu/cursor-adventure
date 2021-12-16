@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // no cheating
 window.addEventListener("contextmenu", e => e.preventDefault());
 
-window.previousLevelNo = "4";
-window.levelNo = "5";
-window.nextLevelNo = "6";
+window.previousLevelNo = "5";
+window.levelNo = "6";
+window.nextLevelNo = "7";
 
 window.hasGameStarted = false;
 window.gameWon = false;
@@ -43,7 +43,7 @@ function lose() {
 
 function game() {
 	window.hasGameStarted = true;
-	document.querySelector(".titledisplay").textContent = "New tile: Locked Doors. They are like black tiles but with letters written on them. In order to move through said doors, you must find the key (yellow tile) that corresponds with the letter written on the door tile. Good luck!"
+	document.querySelector(".titledisplay").textContent = "Here's a full round-up of what you learned so far. Complete the challenge at the top, unlock the first door and the second challenge, which you will complete, to unlock the finish tile."
 }
 
 function win() {
@@ -97,9 +97,9 @@ function finish(loc) {
     loc.appendChild(square);
 }
 
-function timedDamage(loc) {
+function timedDamage(state, loc) {
 	const square = document.createElement('div');
-    square.style.backgroundColor = "red";
+    if(state == true) { square.style.backgroundColor = "red" } else if (state == false) { square.style.backgroundColor = "gray" } else { console.error("Invalid state argument! Expected boolean.") };
 	square.className = "tile timedDamage";
 	square.style.width = "15px";
 	square.style.height = "15px";
@@ -131,26 +131,34 @@ function doorKey(id, loc) {
 	square.style.width = "15px";
 	square.style.height = "15px";
 	square.onclick = function() { if(window.hasGameStarted == true) { var doors = document.querySelectorAll(".tile.lockedDoor." + this.innerText); for (var i = 0; i < doors.length; i++) { doors[i].style.backgroundColor = "gray"; }; this.style.backgroundColor = "white"; this.className = "tile empty"; this.innerText = ""; this.onmouseover = null; this.onclick = null; }; };
-	// exclusively for the introduction level
-	square.onmouseover = function() { if(window.hasGameStarted == true) { document.querySelector(".titledisplay").textContent = "Good job! Now you need to click the key tile with your left mouse button. The corresponding door(s) should turn gray and allow you to go through them." } };
     loc.appendChild(square);
 }
 
 function createBoard() {
   var grid = createGrid();
-black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); 
+black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); 
 grid = createGrid();
-black(grid); start(grid); start(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); lockedDoor("A", grid); empty(grid); empty(grid); finish(grid); finish(grid); black(grid); 
+black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); empty(grid); empty(grid); black(grid); empty(grid); empty(grid); empty(grid); black(grid); empty(grid); empty(grid); empty(grid); black(grid); empty(grid); empty(grid); doorKey("A", grid); black(grid); 
 grid = createGrid();
-black(grid); start(grid); start(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); lockedDoor("A", grid); empty(grid); empty(grid); finish(grid); finish(grid); black(grid); 
+black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); empty(grid); empty(grid); empty(grid); black(grid); empty(grid); empty(grid); empty(grid); black(grid); empty(grid); empty(grid); empty(grid); black(grid); empty(grid); black(grid); 
 grid = createGrid();
-black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); empty(grid); empty(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); 
+black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); empty(grid); empty(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); 
 grid = createGrid();
-black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); empty(grid); empty(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); 
+black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); empty(grid); empty(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); 
 grid = createGrid();
-black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); doorKey("A", grid); black(grid); 
+black(grid); start( grid); start( grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); lockedDoor("A", grid); empty(grid); lockedDoor("B", grid); empty(grid); black(grid); empty(grid); finish(grid); black(grid); 
 grid = createGrid();
-black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); 
+black(grid); start( grid); start( grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); empty(grid); lockedDoor("A", grid); empty(grid); lockedDoor("B", grid); empty(grid); empty(grid); empty(grid); black(grid); black(grid); 
+grid = createGrid();
+black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); lockedDoor("A", grid); lockedDoor("A", grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); 
+grid = createGrid();
+black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); empty(grid); empty(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); 
+grid = createGrid();
+black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); empty(grid); empty(grid); timedDamage(true, grid); empty(grid); timedDamage(false, grid); empty(grid); timedDamage(true, grid); empty(grid); timedDamage(false, grid); empty(grid); timedDamage(true, grid); empty(grid); timedDamage(false, grid); doorKey("B", grid); black(grid); 
+grid = createGrid();
+black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); empty(grid); empty(grid); timedDamage(true, grid); empty(grid); timedDamage(false, grid); empty(grid); timedDamage(true, grid); empty(grid); timedDamage(false, grid); empty(grid); timedDamage(true, grid); empty(grid); timedDamage(false, grid); empty(grid); black(grid); 
+grid = createGrid();
+black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); black(grid); 
 }
 
 createBoard();
