@@ -6,6 +6,14 @@
     <title>Level 5 | Cursor Adventure</title>
     <link rel="stylesheet" href="style.css">
     <script src="app.js" charset="utf-8"></script>
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', () => {
+			if (/Android|Mobile|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+				document.body.innerHTML = "";
+				alert("Looks like your device does not have a mouse cursor. You need one in order to play Cursor Adventure. Please try playing again on a compatible device.");
+			}
+		});
+	</script>
   </head>
   <body style="overflow: hidden;">
   <center>
