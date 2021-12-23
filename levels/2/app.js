@@ -12,6 +12,8 @@ window.hasGameStarted = false;
 window.gameWon = false;
 window.gameLost = false;
 
+window.winTimer = [];
+
 window.outOfGridHandler = function() {
 	if(window.hasGameStarted == true && window.gameWon != true) {
 		lose();
@@ -55,6 +57,32 @@ function win() {
 	}
 }
 
+function startWinTimer() {
+	if(hasGameStarted == true && window.gameLost != true && window.gameWon != true) {
+		window.winTimer[0] = document.querySelector(".titledisplay").textContent;
+		document.querySelector(".titledisplay").textContent = "Keep your cursor on the green pad for 2 more seconds to proceed."
+		window.winTimer[1] = setTimeout(function() {
+			document.querySelector(".titledisplay").textContent = "Keep your cursor on the green pad for 1 more second to proceed.";
+			window.winTimer[2] = setTimeout(function() {
+				document.querySelector(".titledisplay").textContent = "Keep your cursor on the green pad for 0 more seconds to proceed.";
+				win();
+			}, 1000)
+		}, 1000)
+	}
+}
+
+function stopWinTimer() {
+	if(hasGameStarted == true && window.gameLost != true && window.gameWon != true) {
+		try {
+			clearTimeout(window.winTimer[1]);
+		} catch {};
+		try {
+			clearTimeout(window.winTimer[2]);
+		} catch {};
+		document.querySelector(".titledisplay").textContent = window.winTimer[0];
+	}
+}
+
 function black(loc) {
 	const square = document.createElement('div');
     square.style.backgroundColor = "black";
@@ -86,7 +114,8 @@ function finish(loc) {
     square.style.backgroundColor = "green";
 	square.style.width = "15px";
 	square.style.height = "15px";
-	square.onmouseover = function() { win() };
+	square.onmouseenter = function() { startWinTimer() };
+	square.onmouseleave = function() { stopWinTimer() };
     loc.appendChild(square);
 }
 
