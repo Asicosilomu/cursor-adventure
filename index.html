@@ -3,33 +3,37 @@
 <html>
 	<head>
 		<title>Cursor Adventure</title>
-		<script type="text/javascript">
-		document.addEventListener('DOMContentLoaded', () => {
-			if (/Android|Mobile|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-				document.body.innerHTML = "";
-				alert("Looks like your device does not have a mouse cursor. You need one in order to play Cursor Adventure. Please try playing again on a compatible device.");
-			}
-		});
-	</script>
+		<script src="locale.js"></script>
+		<script src="levels.js"></script>
+		<style type="text/css">a { color: black; };</style>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 	<body style="font-family: Segoe UI, Arial, Noto Sans, Ubuntu;">
 	<center>
 	<h1>Cursor Adventure</h1>
-	<br>
-	<a href="./levels/1/index.html">Level 1</a>
-	<br>
-	<a href="./levels/2/index.html">Level 2</a>
-	<br>
-	<a href="./levels/3/index.html">Level 3</a>
-	<br>
-	<a href="./levels/4/index.html">Level 4</a>
-	<br>
-	<a href="./levels/5/index.html">Level 5</a>
-	<br>
-	<a href="./levels/6/index.html">Level 6</a>
-	<br>
-	<br>
-	<p>A creation of Asicosilomu</p>
+	<div id="container">
+		<button onclick="window.showLevels('en')">English</button>
+		<button style="background-color: red; color: yellow;" onclick="window.showLevels('ro')">Românesc</button>
+	</div>
+	<br><i id="credits"></i>
 	</center>
+	<script type="text/javascript">
+		var ln = window.levels.length;
+		var c = document.body.querySelector("#container");
+		var br = document.createElement("br");
+		window.showLevels = function(locale)
+		{
+			c.innerHTML = "<b>" + window.locale[locale].selectlevel + "</b><br><br>";
+			document.body.querySelector("#credits").innerText = window.locale[locale].credits;
+			for (var i = 1; i < ln; i++)
+			{
+				var link = document.createElement("a");
+				link.href = "game.html?level=" + i.toString() + "&lang=" + locale;
+				link.innerText = window.locale[locale].level + " " + i.toString();
+				c.appendChild(link);
+				c.appendChild(br.cloneNode());
+			}
+		};
+	</script>
 	</body>
 </html>
