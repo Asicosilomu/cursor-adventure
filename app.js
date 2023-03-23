@@ -207,17 +207,25 @@ if (/Android|Mobile|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windo
 }
 
 // Check for level param
-if (params.level == undefined) { document.body.innerHTML = locale.badParams; var e = new Error(locale.badParams); e.name = locale.error; throw e; };
+if (params.level == undefined) { document.body.innerHTML = "<center><h1>" + locale.badParams + "</h1><button onclick='history.back()' style='font-size: 30px'>" + locale.back + "</button></center>"; var e = new Error(locale.badParams); e.name = locale.error; throw e; };
 
 // Reg level
 var level = window.levels[Number(params.level)];
-if (level == undefined) { document.body.innerHTML = locale.nolevel; var e = new Error(locale.nolevel); e.name = locale.error; throw e; };
+if (level == undefined || params.level == 0) { document.body.innerHTML = "<center><h1>" + locale.nolevel + "</h1><button onclick='history.back()' style='font-size: 30px'>" + locale.back + "</button></center>"; var e = new Error(locale.nolevel); e.name = locale.error; throw e; };
+
+// Apply level-specific styles
+if (level.styles) { var styleEl = document.createElement("style"); styleEl.type = "text/css"; styleEl.innerHTML = level.styles; document.head.appendChild(styleEl); };
 
 // Other stuff
-document.title = locale.level + " " + params.level + " | Cursor Adventure";
-document.body.querySelector(".ln").innerText = locale.level + " " + params.level;
+document.title = locale.level + " " + params.level + " - " + locale[level.title] + " | Cursor Adventure";
+document.body.querySelector(".ln").innerHTML = "<button style='width: 60px; height: 60px; font-size: 30px;' id='previous'>&lt;</button>&nbsp;&nbsp;" + locale.level + " " + params.level + " - " + locale[level.title] + "&nbsp;&nbsp;<button style='width: 60px; height: 60px; font-size: 30px;' id='next'>&gt;</button>";
 document.body.querySelector(".titledisplay").innerText = locale.globalTip;
 document.body.querySelector(".credits").innerText = locale.credits;
+document.body.querySelector("#tomenu").innerText = locale.tomenu
+
+// Set up control buttons
+document.body.querySelector("#previous").onclick = function() { window.location.assign(window.location.protocol + "//" + window.location.hostname + window.location.pathname + "?level=" + (Number(params.level) - 1).toString() + "&lang=" + params.lang); };
+document.body.querySelector("#next").onclick = function() { window.location.assign(window.location.protocol + "//" + window.location.hostname + window.location.pathname + "?level=" + (Number(params.level) + 1).toString() + "&lang=" + params.lang); };
 
 createBoard();
 

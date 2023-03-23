@@ -29,7 +29,7 @@
 			{
 				var link = document.createElement("a");
 				link.href = "game.html?level=" + i.toString() + "&lang=" + locale;
-				link.innerText = window.locale[locale].level + " " + i.toString();
+				link.innerText = window.locale[locale].level + " " + i.toString() + " - " + window.locale[locale][window.levels[i].title];
 				c.appendChild(link);
 				c.appendChild(br.cloneNode());
 			}
